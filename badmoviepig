@@ -15,9 +15,9 @@ badMovies = FILTER avgRatings BY avgRating < 2.0;
 
 badMoviesWithData = Join badMovies BY movieID, namelookup BY movieID;
 
-finalRes = FOREACH badMoviesWithData GENERATE namelookup::movieTitle AS movieTitle, 
-	nofiveStarMovies::avgRating as avg, nofiveStarMovies:numberofRating as numberofRating;
+finalBadMoviesWithData = FOREACH badMoviesWithData GENERATE namelookup::movieTitle AS movieTitle, 
+	badMovies::avgRating as avgRating, badMovies::numberofRating as numberofRating;
 
-finalResOrded = ORDER finalRes BY numberofRating DESC;
+finalBadMoviesWithDataOrd = ORDER finalBadMoviesWithData BY numberofRating DESC;
 
-DUMP finalResOrded;
+DUMP finalBadMoviesWithDataOrd;
